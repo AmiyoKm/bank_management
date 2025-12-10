@@ -5,6 +5,7 @@ import { type User, type Password, Role } from "../models/user.js";
 import { Prisma } from "../../generated/prisma/client.js";
 import jwt from "jsonwebtoken";
 import { JWT_SECRET } from "../lib/constants.js";
+import { HttpError } from "../lib/errors.js";
 
 const SALT_SIZE = 16;
 const KEY_SIZE = 64;
@@ -50,7 +51,7 @@ export const createUser = async (
 			error instanceof Prisma.PrismaClientKnownRequestError &&
 			error.code === "P2002"
 		) {
-			throw new Error("Email already in use");
+			throw new HttpError(400, "Email already in use");
 		}
 		throw error;
 	}
@@ -63,7 +64,7 @@ export const authenticateUser = async (
 	const userWithPassword = await UserRepo.findUserByEmail(email);
 
 	if (!userWithPassword) {
-		return null;
+		throw new HttpError(400, "Invalid email or password");
 	}
 
 	const isPasswordCorrect = await verifyPassword(
@@ -72,7 +73,7 @@ export const authenticateUser = async (
 	);
 
 	if (!isPasswordCorrect) {
-		return null;
+		throw new HttpError(400, "Invalid email or password");
 	}
 
 	const { password: _, ...user } = userWithPassword;
@@ -108,7 +109,7 @@ export const updateUser = async (
 			error instanceof Prisma.PrismaClientKnownRequestError &&
 			error.code === "P2002"
 		) {
-			throw new Error("Email already in use");
+			throw new HttpError(400, "Email already in use");
 		}
 		throw error;
 	}

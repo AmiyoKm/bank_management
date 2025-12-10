@@ -10,23 +10,24 @@ import { auth } from "../middlewares/auth";
 import { authorize } from "../middlewares/authorize";
 import { Role } from "../../models/user";
 import { validate } from "../middlewares/validate";
-import { createUserSchema, updateUserSchema, userParamsSchema } from "../validators/users";
+import {
+	createUserSchema,
+	updateUserSchema,
+	userParamsSchema,
+} from "../validators/users";
 
 const router = Router();
 
-// @route   GET api/users
-// @desc    Get all users
-// @access  Private (Admin)
 router.get("/", auth, authorize([Role.ADMIN]), getAllUsers);
 
-// @route   GET api/users/:id
-// @desc    Get user by ID
-// @access  Private (Admin)
-router.get("/:id", auth, authorize([Role.ADMIN]), validate(userParamsSchema), getUserById);
+router.get(
+	"/:id",
+	auth,
+	authorize([Role.ADMIN]),
+	validate(userParamsSchema),
+	getUserById,
+);
 
-// @route   POST api/users
-// @desc    Create a new user
-// @access  Private (Admin)
 router.post(
 	"/",
 	auth,
@@ -34,15 +35,21 @@ router.post(
 	validate(createUserSchema),
 	createUser,
 );
+router.patch(
+	"/:id",
+	auth,
+	authorize([Role.ADMIN]),
+	validate(userParamsSchema),
+	validate(updateUserSchema),
+	updateUser,
+);
 
-// @route   PUT api/users/:id
-// @desc    Update user details
-// @access  Private (Admin)
-router.put("/:id", auth, authorize([Role.ADMIN]), validate(userParamsSchema), validate(updateUserSchema), updateUser);
-
-// @route   DELETE api/users/:id
-// @desc    Delete a user
-// @access  Private (Admin)
-router.delete("/:id", auth, authorize([Role.ADMIN]), validate(userParamsSchema), deleteUser);
+router.delete(
+	"/:id",
+	auth,
+	authorize([Role.ADMIN]),
+	validate(userParamsSchema),
+	deleteUser,
+);
 
 export default router;

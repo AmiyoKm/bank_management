@@ -6,40 +6,42 @@ import {
 	getAccountById,
 	updateAccount,
 	deleteAccount,
-} from "../controllers/account.controller";
+} from "../controllers/accounts";
 import { auth } from "../middlewares/auth";
 import { authorize } from "../middlewares/authorize";
+import { validate } from "../middlewares/validate";
+import {
+	createAccountSchema,
+	updateAccountSchema,
+	accountIdSchema,
+    getAccountsSchema,
+} from "../validators/accounts";
+import { Role } from "../../models/user";
 
 const router = Router();
 
-// @route   POST api/accounts
-// @desc    Create a new account
-// @access  Private
-router.post("/", auth, createAccount);
+router.post("/", auth, validate(createAccountSchema), createAccount);
 
-// @route   GET api/accounts
-// @desc    Get all accounts (for staff/admin)
-// @access  Private (Admin, Staff)
-router.get("/", auth, authorize(["ADMIN", "STAFF"]), getAccounts);
+router.get("/", auth, authorize([Role.ADMIN, Role.STAFF]), validate(getAccountsSchema), getAccounts);
 
-// @route   GET api/accounts/me
-// @desc    Get all accounts for the logged-in customer
-// @access  Private
 router.get("/me", auth, getMyAccounts);
 
-// @route   GET api/accounts/:id
-// @desc    Get account details
-// @access  Private
-router.get("/:id", auth, getAccountById);
+router.get("/:id", auth, validate(accountIdSchema), getAccountById);
 
-// @route   PUT api/accounts/:id
-// @desc    Update account details (for staff/admin)
-// @access  Private (Admin, Staff)
-router.put("/:id", auth, authorize(["ADMIN", "STAFF"]), updateAccount);
+router.patch(
+	"/:id",
+	auth,
+	authorize([Role.ADMIN, Role.STAFF]),
+	validate(updateAccountSchema),
+	updateAccount,
+);
 
-// @route   DELETE api/accounts/:id
-// @desc    Delete an account (for admin)
-// @access  Private (Admin)
-router.delete("/:id", auth, authorize(["ADMIN"]), deleteAccount);
+router.delete(
+	"/:id",
+	auth,
+	authorize([Role.ADMIN]),
+	validate(accountIdSchema),
+	deleteAccount,
+);
 
 export default router;
