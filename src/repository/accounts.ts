@@ -94,7 +94,7 @@ export const updateAccount = async (
 	amount: number,
 	account: Account,
 ): Promise<Account> => {
-	
+
 	return prisma.account.update({
 		where: { id },
 		data: {

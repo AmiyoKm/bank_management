@@ -1,38 +1,40 @@
 import { Router } from "express";
 import {
     deposit,
-    withdraw,
-    internalTransfer,
     externalTransfer,
-    getAccountTransactionHistory
-} from "../controllers/transaction.controller";
+    getTransactionById,
+    getTransactions,
+    transfer,
+    withdraw,
+} from "../controllers/transactions";
 import { auth } from "../middlewares/auth";
+import { validate } from "../middlewares/validate";
+import {
+    depositSchema,
+    externalTransferSchema,
+    getTransactionsSchema,
+    transactionIdSchema,
+    transferSchema,
+    withdrawSchema,
+} from "../validators/transactions";
 
 const router = Router();
 
-// @route   POST api/transactions/deposit
-// @desc    Deposit funds into an account
-// @access  Private
-router.post("/deposit", auth, deposit);
+router.post("/deposit", auth, validate(depositSchema), deposit);
 
-// @route   POST api/transactions/withdraw
-// @desc    Withdraw funds from an account
-// @access  Private
-router.post("/withdraw", auth, withdraw);
+router.post("/withdraw", auth, validate(withdrawSchema), withdraw);
 
-// @route   POST api/transactions/transfer/internal
-// @desc    Transfer funds between internal accounts
-// @access  Private
-router.post("/transfer/internal", auth, internalTransfer);
+router.post("/transfer", auth, validate(transferSchema), transfer);
 
-// @route   POST api/transactions/transfer/external
-// @desc    Transfer funds to an external account
-// @access  Private
-router.post("/transfer/external", auth, externalTransfer);
+router.post(
+    "/transfer/external",
+    auth,
+    validate(externalTransferSchema),
+    externalTransfer
+);
 
-// @route   GET api/transactions/history/:accountId
-// @desc    Get transaction history for a specific account
-// @access  Private
-router.get("/history/:accountId", auth, getAccountTransactionHistory);
+router.get("/", auth, validate(getTransactionsSchema), getTransactions);
+
+router.get("/:id", auth, validate(transactionIdSchema), getTransactionById);
 
 export default router;
