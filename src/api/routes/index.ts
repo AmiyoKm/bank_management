@@ -1,10 +1,10 @@
 import { Router } from "express";
-import authRoutes from "./auth";
-import userRoutes from "./users";
 import accountRoutes from "./accounts";
+import authRoutes from "./auth";
 import transactionRoutes from "./transactions";
+import userRoutes from "./users";
 // import loanRoutes from "./loans";
-// import savingsRoutes from "./savings";
+import fixedDepositRoutes from "./fixedDeposit";
 // import reportRoutes from "./reports";
 
 const router = Router();
@@ -14,7 +14,7 @@ router.use("/users", userRoutes);
 router.use("/accounts", accountRoutes);
 router.use("/transactions", transactionRoutes);
 // router.use("/loans", loanRoutes);
-// router.use("/savings", savingsRoutes);
+router.use("/fixed-deposit", fixedDepositRoutes);
 // router.use("/reports", reportRoutes);
 
 export default router;

@@ -38,20 +38,9 @@ export const externalTransferSchema = z.object({
 
 export const getTransactionsSchema = z.object({
     query: z.object({
-        accountId: z
-            .string()
-            .optional()
-            .transform((val) => (val ? parseInt(val, 10) : undefined)),
-        page: z
-            .string()
-            .min(1)
-            .optional()
-            .transform((val) => (val ? parseInt(val, 10) : undefined)),
-        limit: z
-            .string()
-            .min(1)
-            .optional()
-            .transform((val) => (val ? parseInt(val, 10) : undefined)),
+        accountId: z.string().optional(),
+        page: z.string().optional(),
+        limit: z.string().optional(),
         sort: z.enum(["asc", "desc"]).optional(),
         type: z.nativeEnum(TransactionType).optional(),
         startDate: z.string().datetime().optional(),
@@ -61,11 +50,8 @@ export const getTransactionsSchema = z.object({
 
 export const transactionIdSchema = z.object({
     params: z.object({
-        id: z
-            .string()
-            .refine((val) => !isNaN(parseInt(val, 10)), {
-                message: "Id must be a number",
-            })
-            .transform((val) => parseInt(val, 10)),
+        id: z.string().refine((val) => !isNaN(parseInt(val, 10)), {
+            message: "Id must be a number",
+        }),
     }),
 });

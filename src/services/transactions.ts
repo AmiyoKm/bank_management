@@ -60,7 +60,6 @@ export const createTransfer = async (
     toAccountId: number,
     amount: number,
     description: string | undefined,
-    requestingUser: User
 ): Promise<Transaction> => {
     const fromAccount = await AccountRepository.findById(fromAccountId);
     if (!fromAccount) {

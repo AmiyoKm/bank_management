@@ -118,6 +118,11 @@ enum TransactionType {
     DEPOSIT
     WITHDRAWAL
     TRANSFER
+    FIXED_DEPOSIT
+    FIXED_DEPOSIT_WITHDRAWAL
+    LOAN
+    LOAN_PAYMENT
+    LOAN_INTEREST
     FEE
     INTEREST_CREDIT // Added for Automated Interest Credit tracking
 }

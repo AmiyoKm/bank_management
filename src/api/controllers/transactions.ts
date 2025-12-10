@@ -69,7 +69,6 @@ export const transfer = async (
             Number(toAccountId),
             Number(amount),
             description,
-            req.user
         );
         res.status(201).json(transaction);
     } catch (error) {
