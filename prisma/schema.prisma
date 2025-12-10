@@ -1,0 +1,130 @@
+generator client {
+    provider = "prisma-client"
+    output   = "../generated/prisma"
+}
+
+datasource db {
+    provider = "postgresql"
+}
+
+model User {
+    id        Int      @id @default(autoincrement())
+    email     String   @unique
+    password  String // Must be stored as a hash (Implementation detail)
+    role      Role     @default(CUSTOMER)
+    firstName String
+    lastName  String
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    accounts Account[]
+    loans    Loan[]
+}
+
+model Account {
+    id            Int           @id @default(autoincrement())
+    accountNumber String        @unique
+    type          AccountType
+    balance       Decimal       @default(0)
+    currency      String        @default("BDT")
+    userId        Int
+    user          User          @relation(fields: [userId], references: [id])
+    transactions  Transaction[] @relation("accountTransactions")
+    loan          Loan?
+    fixedDeposit  FixedDeposit?
+    createdAt     DateTime      @default(now())
+    updatedAt     DateTime      @updatedAt
+}
+
+model FixedDeposit {
+    id            Int      @id @default(autoincrement())
+    accountId     Int      @unique
+    account       Account  @relation(fields: [accountId], references: [id])
+    depositAmount Decimal
+    interestRate  Decimal
+    startDate     DateTime @default(now())
+    maturityDate  DateTime
+    isActive      Boolean  @default(true)
+}
+
+model Transaction {
+    id                      Int             @id @default(autoincrement())
+    type                    TransactionType
+    amount                  Decimal
+    fee                     Decimal         @default(0)
+    fromAccountId           Int
+    fromAccount             Account         @relation("accountTransactions", fields: [fromAccountId], references: [id])
+    toAccountId             Int?
+    toExternalAccountNumber String?
+    toExternalRoutingNumber String?
+    description             String?
+    createdAt               DateTime        @default(now())
+    updatedAt               DateTime        @updatedAt
+}
+
+model Loan {
+    id            Int            @id @default(autoincrement())
+    userId        Int
+    user          User           @relation(fields: [userId], references: [id])
+    accountId     Int            @unique // The associated LOAN Account
+    account       Account        @relation(fields: [accountId], references: [id])
+    amount        Decimal
+    interestRate  Decimal
+    term          Int // in months
+    status        LoanStatus     @default(PENDING)
+    payments      LoanPayment[] // History of payments made
+    loanSchedules LoanSchedule[] // Future repayment schedule (for reporting/penalties)
+    createdAt     DateTime       @default(now())
+    updatedAt     DateTime       @updatedAt
+}
+
+model LoanPayment {
+    id          Int      @id @default(autoincrement())
+    loanId      Int
+    loan        Loan     @relation(fields: [loanId], references: [id])
+    amount      Decimal
+    paymentDate DateTime @default(now())
+}
+
+model LoanSchedule {
+    id        Int           @id @default(autoincrement())
+    loanId    Int
+    loan      Loan          @relation(fields: [loanId], references: [id])
+    dueDate   DateTime
+    dueAmount Decimal
+    status    PaymentStatus @default(PENDING)
+}
+
+enum PaymentStatus {
+    PENDING
+    PAID
+    OVERDUE
+}
+
+enum Role {
+    CUSTOMER
+    STAFF
+    ADMIN
+}
+
+enum AccountType {
+    CHECKING
+    SAVINGS
+    LOAN
+    FIXED_DEPOSIT
+}
+
+enum TransactionType {
+    DEPOSIT
+    WITHDRAWAL
+    TRANSFER
+    FEE
+    INTEREST_CREDIT // Added for Automated Interest Credit tracking
+}
+
+enum LoanStatus {
+    PENDING
+    APPROVED
+    REJECTED
+    PAID
+}
