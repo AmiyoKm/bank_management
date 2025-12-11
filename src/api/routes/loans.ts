@@ -3,6 +3,7 @@ import {
     applyForLoan,
     getAllLoans,
     getLoanById,
+    getLoanPayments,
     getLoanSchedule,
     getMyLoans,
     repayLoan,
@@ -33,7 +34,7 @@ router.get("/me", auth, validate(getAllLoansSchema), getMyLoans);
 
 router.get("/:id", auth, validate(getLoanIdSchema), getLoanById);
 
-router.put(
+router.patch(
     "/:id/status",
     auth,
     authorize(["ADMIN", "STAFF"]),
@@ -43,9 +44,7 @@ router.put(
 
 router.post("/:id/repay", auth, validate(repayLoanSchema), repayLoan);
 
-// @route   GET api/loans/:id/schedule
-// @desc    Get the repayment schedule for a loan
-// @access  Private
 router.get("/:id/schedule", auth, validate(getLoanIdSchema), getLoanSchedule);
+router.get("/:id/payments", auth, validate(getLoanIdSchema), getLoanPayments);
 
 export default router;

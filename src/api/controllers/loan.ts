@@ -124,7 +124,15 @@ export const getMyLoans = async (
             validStatus,
             req.user.id
         );
-        res.status(200).json(loans);
+
+        const loansWithoutDetails = loans.map((loan) => {
+            const { loanSchedules, payments, ...rest } = loan as typeof loan & {
+                loanSchedules?: any[];
+                payments?: any[];
+            };
+            return rest;
+        });
+        res.status(200).json(loansWithoutDetails);
     } catch (error) {
         next(error);
     }
@@ -209,10 +217,28 @@ export const getLoanSchedule = async (
         }
         const id = parseInt(req.params.id);
 
-        // Use getLoanById to fetch details including schedule, ensuring permissions
         const loan = await LoanService.getLoanById(id, req.user);
 
-        res.status(200).json(loan);
+        res.status(200).json(loan.loanSchedules);
+    } catch (error) {
+        next(error);
+    }
+};
+
+export const getLoanPayments = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+) => {
+    try {
+        if (!req.user) {
+            throw new HttpError(401, "Unauthorized");
+        }
+        const id = parseInt(req.params.id);
+
+        const loan = await LoanService.getLoanById(id, req.user);
+
+        res.status(200).json(loan.payments);
     } catch (error) {
         next(error);
     }

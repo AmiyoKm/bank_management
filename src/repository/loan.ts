@@ -108,6 +108,12 @@ export const findAll = async (
                     email: true,
                 },
             },
+            loanSchedules: {
+                orderBy: { dueDate: "asc" },
+            },
+            payments: {
+                orderBy: { paymentDate: "desc" },
+            },
         },
     });
 };
@@ -118,6 +124,9 @@ export const findByUserId = async (userId: number): Promise<Loan[]> => {
         include: {
             loanSchedules: {
                 orderBy: { dueDate: "asc" },
+            },
+            payments: {
+                orderBy: { paymentDate: "desc" },
             },
         },
         orderBy: { createdAt: "desc" },

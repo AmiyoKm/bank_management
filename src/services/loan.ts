@@ -79,7 +79,7 @@ export const repayLoan = async (
     if (!loan) {
         throw new HttpError(404, "Loan not found");
     }
-    if (loan.userId !== user.id) {
+    if (user.role === Role.CUSTOMER && loan.userId !== user.id) {
         throw new HttpError(403, "Forbidden: This is not your loan");
     }
     if (
