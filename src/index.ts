@@ -19,7 +19,7 @@ app.get("/health", (req, res) => {
 });
 
 app.get("/", (req, res) => {
-	res.json({ message: "Hello World!" });
+	res.json({ message: "Bank Management System" });
 });
 
 app.use(notFound);

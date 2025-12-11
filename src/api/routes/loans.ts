@@ -1,56 +1,51 @@
 import { Router } from "express";
 import {
-	applyForLoan,
-	getAllLoans,
-	getMyLoans,
-	getLoanById,
-	updateLoanStatus,
-	repayLoan,
-	getLoanSchedule,
-} from "../controllers/loan.controller";
+    applyForLoan,
+    getAllLoans,
+    getLoanById,
+    getLoanSchedule,
+    getMyLoans,
+    repayLoan,
+    updateLoanStatus,
+} from "../controllers/loan";
 import { auth } from "../middlewares/auth";
 import { authorize } from "../middlewares/authorize";
+import { validate } from "../middlewares/validate";
+import {
+    applyLoanSchema,
+    getAllLoansSchema,
+    getLoanIdSchema,
+    repayLoanSchema,
+    updateStatusSchema,
+} from "../validators/loan";
 
 const router = Router();
 
-// @route   POST api/loans/apply
-// @desc    Customer applies for a loan
-// @access  Private (Customer)
-router.post("/apply", auth, applyForLoan);
+router.post("/apply", auth, validate(applyLoanSchema), applyForLoan);
+router.get(
+    "/",
+    auth,
+    authorize(["ADMIN", "STAFF"]),
+    validate(getAllLoansSchema),
+    getAllLoans
+);
+router.get("/me", auth, validate(getAllLoansSchema), getMyLoans);
 
-// @route   GET api/loans
-// @desc    Get all loan applications (for staff/admin)
-// @access  Private (Admin, Staff)
-router.get("/", auth, authorize(["ADMIN", "STAFF"]), getAllLoans);
+router.get("/:id", auth, validate(getLoanIdSchema), getLoanById);
 
-// @route   GET api/loans/me
-// @desc    Get all loans for the logged-in customer
-// @access  Private (Customer)
-router.get("/me", auth, getMyLoans);
-
-// @route   GET api/loans/:id
-// @desc    Get details of a specific loan
-// @access  Private
-router.get("/:id", auth, getLoanById);
-
-// @route   PUT api/loans/:id/status
-// @desc    Update loan status (approve/reject)
-// @access  Private (Admin, Staff)
 router.put(
-	"/:id/status",
-	auth,
-	authorize(["ADMIN", "STAFF"]),
-	updateLoanStatus,
+    "/:id/status",
+    auth,
+    authorize(["ADMIN", "STAFF"]),
+    validate(updateStatusSchema),
+    updateLoanStatus
 );
 
-// @route   POST api/loans/:id/repay
-// @desc    Make a payment towards a loan
-// @access  Private (Customer)
-router.post("/:id/repay", auth, repayLoan);
+router.post("/:id/repay", auth, validate(repayLoanSchema), repayLoan);
 
 // @route   GET api/loans/:id/schedule
 // @desc    Get the repayment schedule for a loan
 // @access  Private
-router.get("/:id/schedule", auth, getLoanSchedule);
+router.get("/:id/schedule", auth, validate(getLoanIdSchema), getLoanSchedule);
 
 export default router;

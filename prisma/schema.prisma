@@ -30,7 +30,8 @@ model Account {
     userId        Int
     user          User          @relation(fields: [userId], references: [id])
     transactions  Transaction[] @relation("accountTransactions")
-    loan          Loan?
+    loan          Loan?         @relation("LoanAccount")
+    disbursementLoans Loan[]    @relation("LoanDisbursementAccount")
     fixedDeposit  FixedDeposit?
     createdAt     DateTime      @default(now())
     updatedAt     DateTime      @updatedAt
@@ -67,7 +68,9 @@ model Loan {
     userId        Int
     user          User           @relation(fields: [userId], references: [id])
     accountId     Int            @unique // The associated LOAN Account
-    account       Account        @relation(fields: [accountId], references: [id])
+    account       Account        @relation("LoanAccount", fields: [accountId], references: [id])
+    disbursementAccountId Int
+    disbursementAccount Account @relation("LoanDisbursementAccount", fields: [disbursementAccountId], references: [id])
     amount        Decimal
     interestRate  Decimal
     term          Int // in months
@@ -93,6 +96,8 @@ model LoanSchedule {
     dueDate   DateTime
     dueAmount Decimal
     status    PaymentStatus @default(PENDING)
+    paidAmount Decimal     @default(0)
+    paidAt    DateTime?
 }
 
 enum PaymentStatus {
@@ -132,4 +137,5 @@ enum LoanStatus {
     APPROVED
     REJECTED
     PAID
+    OVERDUE
 }
