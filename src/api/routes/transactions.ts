@@ -6,9 +6,9 @@ import {
     getTransactions,
     transfer,
     withdraw,
-} from "../controllers/transactions";
-import { auth } from "../middlewares/auth";
-import { validate } from "../middlewares/validate";
+} from "../controllers/transactions.js";
+import { auth } from "../middlewares/auth.js";
+import { validate } from "../middlewares/validate.js";
 import {
     depositSchema,
     externalTransferSchema,
@@ -16,7 +16,7 @@ import {
     transactionIdSchema,
     transferSchema,
     withdrawSchema,
-} from "../validators/transactions";
+} from "../validators/transactions.js";
 
 const router = Router();
 

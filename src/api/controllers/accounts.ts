@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
-import * as AccountService from "../../services/accounts";
-import { HttpError } from "../../lib/errors";
-import { AccountType } from "../../../generated/prisma/enums";
+import * as AccountService from "../../services/accounts.js";
+import { HttpError } from "../../lib/errors.js";
+import { AccountType } from "../../../generated/prisma/enums.js";
 
 export const createAccount = async (
 	req: Request,

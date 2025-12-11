@@ -1,8 +1,8 @@
-import { Transaction, TransactionType } from "../../generated/prisma/client";
-import { HttpError } from "../lib/errors";
-import { Role, User } from "../models/user";
-import * as AccountRepository from "../repository/accounts";
-import * as TransactionRepository from "../repository/transactions";
+import { Transaction, TransactionType } from "../../generated/prisma/client.js";
+import { HttpError } from "../lib/errors.js";
+import { Role, User } from "../models/user.js";
+import * as AccountRepository from "../repository/accounts.js";
+import * as TransactionRepository from "../repository/transactions.js";
 
 export const createDeposit = async (
     accountId: number,

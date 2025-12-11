@@ -1,13 +1,13 @@
 import { Router } from "express";
-import { Role } from "../../models/user";
+import { Role } from "../../models/user.js";
 import {
     getAccountStatement,
     getAdminSummaryReport,
-} from "../controllers/report";
-import { auth } from "../middlewares/auth";
-import { authorize } from "../middlewares/authorize";
-import { validate } from "../middlewares/validate";
-import { adminSummarySchema, statementSchema } from "../validators/report";
+} from "../controllers/report.js";
+import { auth } from "../middlewares/auth.js";
+import { authorize } from "../middlewares/authorize.js";
+import { validate } from "../middlewares/validate.js";
+import { adminSummarySchema, statementSchema } from "../validators/report.js";
 
 const router = Router();
 

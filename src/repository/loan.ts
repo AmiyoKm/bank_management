@@ -6,9 +6,9 @@ import {
     Prisma,
     Transaction,
     TransactionType,
-} from "../../generated/prisma/client";
-import { generateAccountNumber } from "../lib/helpers";
-import { prisma } from "../lib/prisma";
+} from "../../generated/prisma/client.js";
+import { generateAccountNumber } from "../lib/helpers.js";
+import { prisma } from "../lib/prisma.js";
 
 export const createLoan = async (
     userId: number,

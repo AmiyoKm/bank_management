@@ -2,8 +2,8 @@ import {
     Prisma,
     Transaction,
     TransactionType,
-} from "../../generated/prisma/client";
-import { prisma } from "../lib/prisma";
+} from "../../generated/prisma/client.js";
+import { prisma } from "../lib/prisma.js";
 
 export const createTransaction = async (
     amount: number,

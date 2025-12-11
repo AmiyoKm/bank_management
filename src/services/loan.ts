@@ -1,10 +1,10 @@
-import { Loan, LoanStatus, PaymentStatus } from "../../generated/prisma/client";
-import { INTEREST_RATE } from "../lib/constants";
-import { HttpError } from "../lib/errors";
-import { generateLoanSchedule } from "../lib/helpers";
-import { Role, User } from "../models/user";
-import * as AccountRepository from "../repository/accounts";
-import * as LoanRepository from "../repository/loan";
+import { Loan, LoanStatus, PaymentStatus } from "../../generated/prisma/client.js";
+import { INTEREST_RATE } from "../lib/constants.js";
+import { HttpError } from "../lib/errors.js";
+import { generateLoanSchedule } from "../lib/helpers.js";
+import { Role, User } from "../models/user.js";
+import * as AccountRepository from "../repository/accounts.js";
+import * as LoanRepository from "../repository/loan.js";
 
 export const applyForLoan = async (
     userId: number,

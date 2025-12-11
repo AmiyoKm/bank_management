@@ -1,8 +1,8 @@
-import { Account, AccountType, Role } from "../../generated/prisma/client";
-import * as AccountRepository from "../repository/accounts";
-import { findUserById } from "../repository/user";
-import { HttpError } from "../lib/errors";
-import { User } from "../models/user";
+import { Account, AccountType, Role } from "../../generated/prisma/client.js";
+import * as AccountRepository from "../repository/accounts.js";
+import { findUserById } from "../repository/user.js";
+import { HttpError } from "../lib/errors.js";
+import { User } from "../models/user.js";
 
 export const createAccount = async (
 	type: AccountType,

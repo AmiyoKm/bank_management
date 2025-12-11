@@ -5,15 +5,15 @@ import {
     getFixedDepositById,
     getMyFixedDeposits,
     processMaturity,
-} from "../controllers/fixedDeposit";
-import { auth } from "../middlewares/auth";
-import { authorize } from "../middlewares/authorize";
-import { validate } from "../middlewares/validate";
+} from "../controllers/fixedDeposit.js";
+import { auth } from "../middlewares/auth.js";
+import { authorize } from "../middlewares/authorize.js";
+import { validate } from "../middlewares/validate.js";
 import {
     createFixedDepositSchema,
     fixedDepositIdSchema,
     getFixedDepositsSchema,
-} from "../validators/fixedDeposit";
+} from "../validators/fixedDeposit.js";
 
 const router = Router();
 

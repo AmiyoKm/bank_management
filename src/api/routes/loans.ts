@@ -8,17 +8,17 @@ import {
     getMyLoans,
     repayLoan,
     updateLoanStatus,
-} from "../controllers/loan";
-import { auth } from "../middlewares/auth";
-import { authorize } from "../middlewares/authorize";
-import { validate } from "../middlewares/validate";
+} from "../controllers/loan.js";
+import { auth } from "../middlewares/auth.js";
+import { authorize } from "../middlewares/authorize.js";
+import { validate } from "../middlewares/validate.js";
 import {
     applyLoanSchema,
     getAllLoansSchema,
     getLoanIdSchema,
     repayLoanSchema,
     updateStatusSchema,
-} from "../validators/loan";
+} from "../validators/loan.js";
 
 const router = Router();
 

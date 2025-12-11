@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { LoanStatus } from "../../../generated/prisma/client";
+import { LoanStatus } from "../../../generated/prisma/client.js";
 
 export const applyLoanSchema = z.object({
     body: z.object({

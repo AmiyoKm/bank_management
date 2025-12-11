@@ -1,7 +1,7 @@
-import { Account, AccountType } from "../../generated/prisma/client";
-import { AccountWhereInput } from "../../generated/prisma/models";
-import { generateAccountNumber } from "../lib/helpers";
-import { prisma } from "../lib/prisma";
+import { Account, AccountType } from "../../generated/prisma/client.js";
+import { AccountWhereInput } from "../../generated/prisma/models.js";
+import { generateAccountNumber } from "../lib/helpers.js";
+import { prisma } from "../lib/prisma.js";
 
 export const createAccount = async (
     type: AccountType,

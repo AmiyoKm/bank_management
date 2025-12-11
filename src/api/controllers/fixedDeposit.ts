@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
-import { HttpError } from "../../lib/errors";
-import * as FixedDepositService from "../../services/fixedDeposit";
+import { HttpError } from "../../lib/errors.js";
+import * as FixedDepositService from "../../services/fixedDeposit.js";
 
 export const createFixedDeposit = async (
     req: Request,

@@ -1,5 +1,5 @@
-import { Prisma, TransactionType } from "../../generated/prisma/client";
-import { prisma } from "../lib/prisma";
+import { Prisma, TransactionType } from "../../generated/prisma/client.js";
+import { prisma } from "../lib/prisma.js";
 
 export const getTransactionsForStatement = async (
     accountId: number,

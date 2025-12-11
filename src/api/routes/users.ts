@@ -5,16 +5,16 @@ import {
 	createUser,
 	updateUser,
 	deleteUser,
-} from "../controllers/user";
-import { auth } from "../middlewares/auth";
-import { authorize } from "../middlewares/authorize";
-import { Role } from "../../models/user";
-import { validate } from "../middlewares/validate";
+} from "../controllers/user.js";
+import { auth } from "../middlewares/auth.js";
+import { authorize } from "../middlewares/authorize.js";
+import { Role } from "../../models/user.js";
+import { validate } from "../middlewares/validate.js";
 import {
 	createUserSchema,
 	updateUserSchema,
 	userParamsSchema,
-} from "../validators/users";
+} from "../validators/users.js";
 
 const router = Router();
 

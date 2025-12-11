@@ -1,11 +1,11 @@
 import { Router } from "express";
-import accountRoutes from "./accounts";
-import authRoutes from "./auth";
-import fixedDepositRoutes from "./fixedDeposit";
-import loanRoutes from "./loans";
-import reportRoutes from "./reports";
-import transactionRoutes from "./transactions";
-import userRoutes from "./users";
+import accountRoutes from "./accounts.js";
+import authRoutes from "./auth.js";
+import fixedDepositRoutes from "./fixedDeposit.js";
+import loanRoutes from "./loans.js";
+import reportRoutes from "./reports.js";
+import transactionRoutes from "./transactions.js";
+import userRoutes from "./users.js";
 
 const router = Router();
 

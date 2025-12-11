@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
-import { LoanStatus } from "../../../generated/prisma/client";
-import { HttpError } from "../../lib/errors";
-import * as LoanService from "../../services/loan";
+import { LoanStatus } from "../../../generated/prisma/client.js";
+import { HttpError } from "../../lib/errors.js";
+import * as LoanService from "../../services/loan.js";
 
 export const applyForLoan = async (
     req: Request,

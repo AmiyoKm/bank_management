@@ -2,8 +2,8 @@ import {
     AccountType,
     Prisma,
     TransactionType,
-} from "../../generated/prisma/client";
-import { prisma } from "../lib/prisma";
+} from "../../generated/prisma/client.js";
+import { prisma } from "../lib/prisma.js";
 
 export const create = async (
     userId: number,

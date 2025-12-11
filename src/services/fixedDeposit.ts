@@ -1,9 +1,9 @@
-import { INTEREST_RATE } from "../lib/constants";
-import { HttpError } from "../lib/errors";
-import { Role, User } from "../models/user";
-import * as AccountRepository from "../repository/accounts";
-import * as FixedDepositRepository from "../repository/fixedDeposit";
-import { FixedDepositWithAccount } from "../repository/fixedDeposit";
+import { INTEREST_RATE } from "../lib/constants.js";
+import { HttpError } from "../lib/errors.js";
+import { Role, User } from "../models/user.js";
+import * as AccountRepository from "../repository/accounts.js";
+import * as FixedDepositRepository from "../repository/fixedDeposit.js";
+import { FixedDepositWithAccount } from "../repository/fixedDeposit.js";
 
 export const createFixedDeposit = async (
     userId: number,

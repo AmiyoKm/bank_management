@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
-import { HttpError } from "../../lib/errors";
-import * as ReportService from "../../services/report";
+import { HttpError } from "../../lib/errors.js";
+import * as ReportService from "../../services/report.js";
 
 export const getAccountStatement = async (
     req: Request,

@@ -6,17 +6,17 @@ import {
 	getAccountById,
 	updateAccount,
 	deleteAccount,
-} from "../controllers/accounts";
-import { auth } from "../middlewares/auth";
-import { authorize } from "../middlewares/authorize";
-import { validate } from "../middlewares/validate";
+} from "../controllers/accounts.js";
+import { auth } from "../middlewares/auth.js";
+import { authorize } from "../middlewares/authorize.js";
+import { validate } from "../middlewares/validate.js";
 import {
 	createAccountSchema,
 	updateAccountSchema,
 	accountIdSchema,
     getAccountsSchema,
-} from "../validators/accounts";
-import { Role } from "../../models/user";
+} from "../validators/accounts.js";
+import { Role } from "../../models/user.js";
 
 const router = Router();
 

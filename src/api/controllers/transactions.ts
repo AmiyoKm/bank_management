@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
-import { TransactionType } from "../../../generated/prisma/enums";
-import { HttpError } from "../../lib/errors";
-import * as TransactionService from "../../services/transactions";
+import { TransactionType } from "../../../generated/prisma/enums.js";
+import { HttpError } from "../../lib/errors.js";
+import * as TransactionService from "../../services/transactions.js";
 
 export const deposit = async (
     req: Request,

@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { Role } from "../../models/user";
+import { Role } from "../../models/user.js";
 
 export const createUserSchema = z.object({
 	body: z.object({
