@@ -3,9 +3,9 @@ import accountRoutes from "./accounts";
 import authRoutes from "./auth";
 import fixedDepositRoutes from "./fixedDeposit";
 import loanRoutes from "./loans";
+import reportRoutes from "./reports";
 import transactionRoutes from "./transactions";
 import userRoutes from "./users";
-// import reportRoutes from "./reports";
 
 const router = Router();
 
@@ -15,6 +15,6 @@ router.use("/accounts", accountRoutes);
 router.use("/transactions", transactionRoutes);
 router.use("/loans", loanRoutes);
 router.use("/fixed-deposit", fixedDepositRoutes);
-// router.use("/reports", reportRoutes);
+router.use("/reports", reportRoutes);
 
 export default router;

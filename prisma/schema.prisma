@@ -22,19 +22,19 @@ model User {
 }
 
 model Account {
-    id            Int           @id @default(autoincrement())
-    accountNumber String        @unique
-    type          AccountType
-    balance       Decimal       @default(0)
-    currency      String        @default("BDT")
-    userId        Int
-    user          User          @relation(fields: [userId], references: [id])
-    transactions  Transaction[] @relation("accountTransactions")
-    loan          Loan?         @relation("LoanAccount")
-    disbursementLoans Loan[]    @relation("LoanDisbursementAccount")
-    fixedDeposit  FixedDeposit?
-    createdAt     DateTime      @default(now())
-    updatedAt     DateTime      @updatedAt
+    id                Int           @id @default(autoincrement())
+    accountNumber     String        @unique
+    type              AccountType
+    balance           Decimal       @default(0)
+    currency          String        @default("BDT")
+    userId            Int
+    user              User          @relation(fields: [userId], references: [id])
+    transactions      Transaction[] @relation("accountTransactions")
+    loan              Loan?         @relation("LoanAccount")
+    disbursementLoans Loan[]        @relation("LoanDisbursementAccount")
+    fixedDeposit      FixedDeposit?
+    createdAt         DateTime      @default(now())
+    updatedAt         DateTime      @updatedAt
 }
 
 model FixedDeposit {
@@ -64,21 +64,21 @@ model Transaction {
 }
 
 model Loan {
-    id            Int            @id @default(autoincrement())
-    userId        Int
-    user          User           @relation(fields: [userId], references: [id])
-    accountId     Int            @unique // The associated LOAN Account
-    account       Account        @relation("LoanAccount", fields: [accountId], references: [id])
+    id                    Int            @id @default(autoincrement())
+    userId                Int
+    user                  User           @relation(fields: [userId], references: [id])
+    accountId             Int            @unique // The associated LOAN Account
+    account               Account        @relation("LoanAccount", fields: [accountId], references: [id])
     disbursementAccountId Int
-    disbursementAccount Account @relation("LoanDisbursementAccount", fields: [disbursementAccountId], references: [id])
-    amount        Decimal
-    interestRate  Decimal
-    term          Int // in months
-    status        LoanStatus     @default(PENDING)
-    payments      LoanPayment[] // History of payments made
-    loanSchedules LoanSchedule[] // Future repayment schedule (for reporting/penalties)
-    createdAt     DateTime       @default(now())
-    updatedAt     DateTime       @updatedAt
+    disbursementAccount   Account        @relation("LoanDisbursementAccount", fields: [disbursementAccountId], references: [id])
+    amount                Decimal
+    interestRate          Decimal
+    term                  Int 
+    status                LoanStatus     @default(PENDING)
+    payments              LoanPayment[]
+    loanSchedules         LoanSchedule[]
+    createdAt             DateTime       @default(now())
+    updatedAt             DateTime       @updatedAt
 }
 
 model LoanPayment {
@@ -90,14 +90,14 @@ model LoanPayment {
 }
 
 model LoanSchedule {
-    id        Int           @id @default(autoincrement())
-    loanId    Int
-    loan      Loan          @relation(fields: [loanId], references: [id])
-    dueDate   DateTime
-    dueAmount Decimal
-    status    PaymentStatus @default(PENDING)
-    paidAmount Decimal     @default(0)
-    paidAt    DateTime?
+    id         Int           @id @default(autoincrement())
+    loanId     Int
+    loan       Loan          @relation(fields: [loanId], references: [id])
+    dueDate    DateTime
+    dueAmount  Decimal
+    status     PaymentStatus @default(PENDING)
+    paidAmount Decimal       @default(0)
+    paidAt     DateTime?
 }
 
 enum PaymentStatus {
@@ -129,7 +129,7 @@ enum TransactionType {
     LOAN_PAYMENT
     LOAN_INTEREST
     FEE
-    INTEREST_CREDIT // Added for Automated Interest Credit tracking
+    INTEREST_CREDIT
 }
 
 enum LoanStatus {
