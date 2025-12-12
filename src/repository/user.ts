@@ -1,10 +1,10 @@
 import type { User as PrismaUser } from "../../generated/prisma/client.js";
 import { prisma } from "../lib/prisma.js";
-import { type Password, Role, type User } from "../models/user.js";
+import { Role, type User } from "../models/user.js";
 
 export const createUser = async (
     email: string,
-    password: Password,
+    password: string,
     firstName: string,
     lastName: string,
     role: Role = Role.CUSTOMER
@@ -12,7 +12,7 @@ export const createUser = async (
     const user = await prisma.user.create({
         data: {
             email,
-            password: password.hash,
+            password,
             firstName,
             lastName,
             role,

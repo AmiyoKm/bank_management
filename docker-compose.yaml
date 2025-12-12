@@ -7,11 +7,14 @@ services:
         depends_on:
             db:
                 condition: service_healthy
+            redis:
+                condition: service_healthy
 
         environment:
             DATABASE_URL: postgresql://postgres:password@db:5432/bank_management?schema=public
             ENVIRONMENT: DEVELOPMENT
             JWT_SECRET: supersecret123
+            REDIS_URL: redis://redis:6379
         command: sh -c "npx prisma db push && (npx prisma studio --browser none --port 51212 & npm run start)"
         networks:
             - bank_management
@@ -31,9 +34,23 @@ services:
             interval: 5s
             timeout: 5s
             retries: 5
-
+    redis:
+        image: redis:alpine
+        container_name: bank_management_redis
+        ports:
+            - "6379:6379"
+        networks:
+            - bank_management
+        volumes:
+            - bank_management_redis_data:/data
+        healthcheck:
+            test: ["CMD-SHELL", "redis-cli ping | grep PONG"]
+            interval: 5s
+            timeout: 5s
+            retries: 5
 networks:
     bank_management:
         driver: bridge
 volumes:
     bank_management_data:
+    bank_management_redis_data:

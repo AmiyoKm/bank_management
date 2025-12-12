@@ -13,7 +13,8 @@
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"dev": "tsx watch --env-file=.env src/index.ts",
-		"start": "node --env-file=.env dist/src/index.js",
+		"start:env": "node --env-file=.env dist/src/index.js",
+        "start": "node dist/src/index.js",
 		"build": "tsc"
 	},
 	"dependencies": {
@@ -27,6 +28,7 @@
 		"jsonwebtoken": "^9.0.2",
 		"morgan": "^1.10.1",
 		"pg": "^8.16.3",
+		"redis": "^5.10.0",
 		"zod": "^4.1.12"
 	},
 	"devDependencies": {
@@ -37,6 +39,7 @@
 		"@types/morgan": "^1.9.10",
 		"@types/node": "^24.10.2",
 		"@types/pg": "^8.15.6",
+		"@types/redis": "^4.0.10",
 		"prisma": "^7.1.0",
 		"tsx": "^4.21.0",
 		"typescript": "^5.9.3"
