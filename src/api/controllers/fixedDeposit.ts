@@ -1,9 +1,14 @@
 import { NextFunction, Request, Response } from "express";
 import { HttpError } from "../../lib/errors.js";
 import * as FixedDepositService from "../../services/fixedDeposit.js";
+import type {
+    CreateFixedDepositBody,
+    FixedDepositIdParams,
+    GetFixedDepositsQuery,
+} from "../validators/fixedDeposit.js";
 
 export const createFixedDeposit = async (
-    req: Request,
+    req: Request<{}, {}, CreateFixedDepositBody>,
     res: Response,
     next: NextFunction
 ) => {
@@ -27,7 +32,7 @@ export const createFixedDeposit = async (
 };
 
 export const getAllFixedDeposits = async (
-    req: Request,
+    req: Request<{}, {}, {}, GetFixedDepositsQuery>,
     res: Response,
     next: NextFunction
 ) => {
@@ -50,7 +55,7 @@ export const getAllFixedDeposits = async (
 };
 
 export const getMyFixedDeposits = async (
-    req: Request,
+    req: Request<{}, {}, {}, GetFixedDepositsQuery>,
     res: Response,
     next: NextFunction
 ) => {
@@ -73,7 +78,7 @@ export const getMyFixedDeposits = async (
 };
 
 export const getFixedDepositById = async (
-    req: Request,
+    req: Request<FixedDepositIdParams>,
     res: Response,
     next: NextFunction
 ) => {

@@ -1,9 +1,14 @@
 import { NextFunction, Request, Response } from "express";
 import { HttpError } from "../../lib/errors.js";
 import * as ReportService from "../../services/report.js";
+import type {
+    AdminSummaryQuery,
+    StatementParams,
+    StatementQuery,
+} from "../validators/report.js";
 
 export const getAccountStatement = async (
-    req: Request,
+    req: Request<StatementParams, {}, {}, StatementQuery>,
     res: Response,
     next: NextFunction
 ) => {
@@ -43,7 +48,7 @@ export const getAccountStatement = async (
 };
 
 export const getAdminSummaryReport = async (
-    req: Request,
+    req: Request<{}, {}, {}, AdminSummaryQuery>,
     res: Response,
     next: NextFunction
 ) => {

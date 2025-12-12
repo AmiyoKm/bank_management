@@ -55,3 +55,10 @@ export const transactionIdSchema = z.object({
         }),
     }),
 });
+
+export type DepositBody = z.infer<typeof depositSchema>["body"];
+export type WithdrawBody = z.infer<typeof withdrawSchema>["body"];
+export type TransferBody = z.infer<typeof transferSchema>["body"];
+export type ExternalTransferBody = z.infer<typeof externalTransferSchema>["body"];
+export type GetTransactionsQuery = z.infer<typeof getTransactionsSchema>["query"];
+export type TransactionIdParams = z.infer<typeof transactionIdSchema>["params"];

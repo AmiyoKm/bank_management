@@ -18,3 +18,7 @@ export const adminSummarySchema = z.object({
         endDate: z.string().datetime().optional(),
     }),
 });
+
+export type StatementParams = z.infer<typeof statementSchema>["params"];
+export type StatementQuery = z.infer<typeof statementSchema>["query"];
+export type AdminSummaryQuery = z.infer<typeof adminSummarySchema>["query"];

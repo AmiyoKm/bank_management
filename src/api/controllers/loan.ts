@@ -2,9 +2,18 @@ import { NextFunction, Request, Response } from "express";
 import { LoanStatus } from "../../../generated/prisma/client.js";
 import { HttpError } from "../../lib/errors.js";
 import * as LoanService from "../../services/loan.js";
+import type {
+    ApplyLoanBody,
+    GetAllLoansQuery,
+    LoanIdParams,
+    RepayLoanBody,
+    RepayLoanParams,
+    UpdateLoanStatusBody,
+    UpdateLoanStatusParams,
+} from "../validators/loan.js";
 
 export const applyForLoan = async (
-    req: Request,
+    req: Request<{}, {}, ApplyLoanBody>,
     res: Response,
     next: NextFunction
 ) => {
@@ -26,7 +35,7 @@ export const applyForLoan = async (
 };
 
 export const getAllLoans = async (
-    req: Request,
+    req: Request<{}, {}, {}, GetAllLoansQuery>,
     res: Response,
     next: NextFunction
 ) => {
@@ -78,7 +87,7 @@ export const getAllLoans = async (
 };
 
 export const getMyLoans = async (
-    req: Request,
+    req: Request<{}, {}, {}, GetAllLoansQuery>,
     res: Response,
     next: NextFunction
 ) => {
@@ -139,7 +148,7 @@ export const getMyLoans = async (
 };
 
 export const getLoanById = async (
-    req: Request,
+    req: Request<LoanIdParams>,
     res: Response,
     next: NextFunction
 ) => {
@@ -156,7 +165,7 @@ export const getLoanById = async (
 };
 
 export const updateLoanStatus = async (
-    req: Request,
+    req: Request<UpdateLoanStatusParams, {}, UpdateLoanStatusBody>,
     res: Response,
     next: NextFunction
 ) => {
@@ -182,7 +191,7 @@ export const updateLoanStatus = async (
 };
 
 export const repayLoan = async (
-    req: Request,
+    req: Request<RepayLoanParams, {}, RepayLoanBody>,
     res: Response,
     next: NextFunction
 ) => {
@@ -207,7 +216,7 @@ export const repayLoan = async (
 };
 
 export const getLoanSchedule = async (
-    req: Request,
+    req: Request<LoanIdParams>,
     res: Response,
     next: NextFunction
 ) => {
@@ -226,7 +235,7 @@ export const getLoanSchedule = async (
 };
 
 export const getLoanPayments = async (
-    req: Request,
+    req: Request<LoanIdParams>,
     res: Response,
     next: NextFunction
 ) => {

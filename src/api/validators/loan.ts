@@ -50,3 +50,11 @@ export const getLoanIdSchema = z.object({
         }),
     }),
 });
+
+export type ApplyLoanBody = z.infer<typeof applyLoanSchema>["body"];
+export type UpdateLoanStatusBody = z.infer<typeof updateStatusSchema>["body"];
+export type UpdateLoanStatusParams = z.infer<typeof updateStatusSchema>["params"];
+export type GetAllLoansQuery = z.infer<typeof getAllLoansSchema>["query"];
+export type RepayLoanBody = z.infer<typeof repayLoanSchema>["body"];
+export type RepayLoanParams = z.infer<typeof repayLoanSchema>["params"];
+export type LoanIdParams = z.infer<typeof getLoanIdSchema>["params"];

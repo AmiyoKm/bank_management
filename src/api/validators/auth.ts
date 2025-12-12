@@ -18,3 +18,6 @@ export const loginUserSchema = z.object({
         password: z.string().min(1, { message: "Password is required" }),
     }),
 });
+
+export type RegisterUserBody = z.infer<typeof registerUserSchema>["body"];
+export type LoginUserBody = z.infer<typeof loginUserSchema>["body"];

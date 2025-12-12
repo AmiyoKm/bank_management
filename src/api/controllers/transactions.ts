@@ -2,9 +2,17 @@ import { NextFunction, Request, Response } from "express";
 import { TransactionType } from "../../../generated/prisma/enums.js";
 import { HttpError } from "../../lib/errors.js";
 import * as TransactionService from "../../services/transactions.js";
+import type {
+    DepositBody,
+    ExternalTransferBody,
+    GetTransactionsQuery,
+    TransactionIdParams,
+    TransferBody,
+    WithdrawBody,
+} from "../validators/transactions.js";
 
 export const deposit = async (
-    req: Request,
+    req: Request<{}, {}, DepositBody>,
     res: Response,
     next: NextFunction
 ) => {
@@ -26,7 +34,7 @@ export const deposit = async (
 };
 
 export const withdraw = async (
-    req: Request,
+    req: Request<{}, {}, WithdrawBody>,
     res: Response,
     next: NextFunction
 ) => {
@@ -48,7 +56,7 @@ export const withdraw = async (
 };
 
 export const transfer = async (
-    req: Request,
+    req: Request<{}, {}, TransferBody>,
     res: Response,
     next: NextFunction
 ) => {
@@ -68,7 +76,7 @@ export const transfer = async (
             Number(fromAccountId),
             Number(toAccountId),
             Number(amount),
-            description,
+            description
         );
         res.status(201).json(transaction);
     } catch (error) {
@@ -77,7 +85,7 @@ export const transfer = async (
 };
 
 export const externalTransfer = async (
-    req: Request,
+    req: Request<{}, {}, ExternalTransferBody>,
     res: Response,
     next: NextFunction
 ) => {
@@ -107,7 +115,7 @@ export const externalTransfer = async (
 };
 
 export const getTransactions = async (
-    req: Request,
+    req: Request<{}, {}, {}, GetTransactionsQuery>,
     res: Response,
     next: NextFunction
 ) => {
@@ -153,7 +161,7 @@ export const getTransactions = async (
 };
 
 export const getTransactionById = async (
-    req: Request,
+    req: Request<TransactionIdParams>,
     res: Response,
     next: NextFunction
 ) => {

@@ -26,3 +26,7 @@ export const fixedDepositIdSchema = z.object({
         }),
     }),
 });
+
+export type CreateFixedDepositBody = z.infer<typeof createFixedDepositSchema>["body"];
+export type GetFixedDepositsQuery = z.infer<typeof getFixedDepositsSchema>["query"];
+export type FixedDepositIdParams = z.infer<typeof fixedDepositIdSchema>["params"];
