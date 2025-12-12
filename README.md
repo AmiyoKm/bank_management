@@ -37,7 +37,7 @@ For detailed API documentation and testing, visit our Postman workspace:
     ```
 3.  **Run the application:**
     ```bash
-    docker-compose up --build -d
+    docker compose up --build
     ```
     The application will be available at `http://localhost:8080`.
     The prisma database dashboard will be available at `http://localhost:51212`.
