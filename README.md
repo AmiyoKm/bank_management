@@ -18,6 +18,11 @@ This is a comprehensive Bank Management API that provides functionalities for ma
 For detailed API documentation and testing, visit our Postman workspace:
 [Bank Management API Documentation](https://mission-geoscientist-60480210-230832.postman.co/workspace/Amiyo's-Workspace~e91c4e80-447c-45d5-8893-81c8706e6814/collection/47007306-0b16edb7-943f-44a4-a8b5-047ab43f7cc8?action=share&source=copy-link&creator=47007306)
 
+## Production
+
+The API is deployed and accessible at:
+[https://bank-management.fly.dev](https://bank-management.fly.dev)
+
 ## How to Start
 
 ### With Docker (Recommended)
@@ -184,10 +189,6 @@ The API is structured into several resources. All routes are prefixed with `/v1`
 | GET    | `/reports/admin/summary`         | Get a summary report for the admin. | Admin               |
 
 
-## Production
-
-The API is deployed and accessible at:
-[https://bank-management-p9km.onrender.com/](https://bank-management-p9km.onrender.com/)
 
 ## Docker Image
 
