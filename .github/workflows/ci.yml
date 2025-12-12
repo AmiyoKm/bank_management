@@ -27,7 +27,7 @@ jobs:
                   DATABASE_URL: ${{ secrets.DATABASE_URL }}
 
             - name: Prisma Database Push
-              run: npx prisma db push
+              run: npx prisma db push > /dev/null
               env:
                   DATABASE_URL: ${{ secrets.DATABASE_URL }}
 
