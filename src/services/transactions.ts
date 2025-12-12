@@ -1,4 +1,5 @@
 import { Transaction, TransactionType } from "../../generated/prisma/client.js";
+import { TRANSFER_FEE } from "../lib/constants";
 import { HttpError } from "../lib/errors.js";
 import { Role, User } from "../models/user.js";
 import * as AccountRepository from "../repository/accounts.js";
@@ -102,9 +103,13 @@ export const createExternalTransfer = async (
         );
     }
 
+    const transferFee = amount * TRANSFER_FEE;
+    const totalAmount = amount + transferFee;
+
     return TransactionRepository.performExternalTransfer(
         fromAccountId,
-        amount,
+        totalAmount,
+        transferFee,
         toExternalAccountNumber,
         toExternalRoutingNumber,
         description

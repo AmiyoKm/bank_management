@@ -187,6 +187,7 @@ export const performWithdrawal = async (
 export const performExternalTransfer = async (
     fromAccountId: number,
     amount: number,
+    fee: number,
     toExternalAccountNumber: string,
     toExternalRoutingNumber: string,
     description?: string
@@ -201,7 +202,7 @@ export const performExternalTransfer = async (
 
         await tx.account.update({
             where: { id: fromAccountId },
-            data: { balance: { decrement: amount } },
+            data: { balance: { decrement: amount + fee } },
         });
 
         return tx.transaction.create({
@@ -209,6 +210,7 @@ export const performExternalTransfer = async (
                 amount,
                 type: TransactionType.TRANSFER,
                 fromAccountId,
+                fee,
                 toExternalAccountNumber,
                 toExternalRoutingNumber,
                 description,

@@ -12,7 +12,7 @@ services:
             DATABASE_URL: postgresql://postgres:password@db:5432/bank_management?schema=public
             ENVIRONMENT: DEVELOPMENT
             JWT_SECRET: supersecret123
-        command: sh -c "npx prisma db push & npx prisma studio --browser none --port 51212 & npm run start"
+        command: sh -c "npx prisma db push && (npx prisma studio --browser none --port 51212 & npm run start)"
         networks:
             - bank_management
     db:
