@@ -16,7 +16,10 @@ This is a comprehensive Bank Management API that provides functionalities for ma
 
 ### With Docker (Recommended)
 
-> **Warning:** You must have Docker and Docker Compose installed on your machine.
+> ⚠️ **Important Prerequisite:**  
+> To use this setup, ensure you have **Docker** and **Docker Compose** installed on your machine.  
+>  
+> If you haven't installed them yet, please visit [Docker's official installation guide](https://docs.docker.com/get-docker/) before proceeding.
 
 1.  **Clone the repository:**
     ```bash
